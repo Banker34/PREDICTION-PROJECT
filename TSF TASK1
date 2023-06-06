@@ -1,0 +1,91 @@
+# NAME - Banshika Banker
+# STATUS - Intern
+# ORGANIZATION - The Sparks Foundation 
+# TASK1 - Prediction of pecentage of student based on no. of study hours
+
+#importing libraries and datasets
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+data=pd.read_csv("C:\\Users\\asus\\Documents\\data.csv")
+
+data.head()
+
+data.tail()
+
+data.info()
+
+data.shape
+
+#first check out is there any null value?
+data.isnull()
+
+#we can also see that is there any null value or not with help of heatmap
+sns.heatmap(data.isnull(),yticklabels=False, cbar=False, cmap='viridis')
+
+
+#Let's plot our data points on 2-D graph, if we can manually find any relationship between the data.
+data.plot(x='HOURS', y='SCORES', style='o')
+plt.title('Hours vs Percentage')
+plt.xlabel('Hours Studied')
+plt.ylabel('Percentage Score')
+plt.show()
+
+
+there is a positive linear regression
+
+# Preparing the data
+
+#Separating the data into attributes(inputs) and labels(outputs)
+X=data.iloc[:, :-1].values
+Y=data.iloc[:, 1].values
+
+X
+
+Y
+
+# Splitting the data into training data and testing data
+
+#Scikit-Learn's built-in train_test_split() method
+from sklearn.model_selection import train_test_split
+X_train,X_test,Y_train,Y_test = train_test_split(X, Y,test_size=0.2, random_state=0)
+
+
+# Training the algorithm
+
+from sklearn.linear_model import LinearRegression
+model = LinearRegression()
+model. fit(X_train,Y_train)
+
+
+# Plotting the regression line
+line = model.coef_*X+model.intercept_
+
+# Plotting for the test data
+plt.scatter(X,Y)
+plt.plot(X, line);
+plt.show()
+
+model.predict([[9.25]])
+
+#checking the correctness of our output
+model.coef_
+
+model.intercept_
+
+# Y=M*X+B
+y=9.91065648*9.25+2.018160041434662
+print(y)
+
+# Our predicted value has been verified correctly.
+
+
+
+
+
+
+
+
+
